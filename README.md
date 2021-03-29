@@ -1,1 +1,1 @@
-# realtime_chat
+# REALTIME CHAT: LARAVEL, MySQL, REDIS, LARAVEL ECHO, SOCKET.IO Client
