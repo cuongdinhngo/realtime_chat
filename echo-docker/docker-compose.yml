@@ -1,0 +1,37 @@
+version: '3'
+services:
+  nginx_server:
+    container_name: app_server
+    build: ./nginx_server
+    volumes:
+      - ../socket_app:/var/www/project
+    ports:
+      - "8000:80"
+      - "6001:6001"
+    tty: true
+  # apache_server:
+  #   container_name: app_server
+  #   build: ./apache_server
+  #   volumes:
+  #     - ../socket_app:/var/www/project
+  #   ports:
+  #     - "8000:80"
+  #     - "6001:6001"
+  #   tty: true
+  #MYSQL
+  db_mysql:
+    container_name: chat_db
+    build: ./mysql
+    tty: true
+    ports:
+      - "43306:3306"
+    environment:
+      MYSQL_DATABASE: chat_app
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: root@secret123
+  #REDIS
+  redis:
+    container_name: chat_redis
+    build: ./redis
+
