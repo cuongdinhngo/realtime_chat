@@ -28,14 +28,16 @@ REDIS_PREFIX=""
 </pre>
 7) Configure project as below commands:
 <pre>
-`docker exec -it app_server bash`
-`composer install`
-`npm install`
-`npm run dev`
-`php artisan migrate`
-`php artisan queue:work`
+docker exec -it app_server bash
+composer install
+npm install
+npm run dev
+php artisan migrate
+php artisan queue:work
 </pre>
 8) Open other terminal to run this commmand:
-`npm install -g laravel-echo-server`
-`laravel-echo-server start`
+<pre>
+npm install -g laravel-echo-server
+laravel-echo-server start
+</pre>
 9) Start chat project `http://localhost:8000`
