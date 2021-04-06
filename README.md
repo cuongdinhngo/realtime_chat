@@ -8,7 +8,7 @@
 6) Update `.env` file at `socket_app` folder
 <pre>
 DB_CONNECTION=mysql
-DB_HOST=172.23.0.2
+DB_HOST=xxx.xxx.xx.xx
 DB_PORT=3306
 DB_DATABASE=chat_app
 DB_USERNAME=root
@@ -20,7 +20,7 @@ QUEUE_CONNECTION=redis
 SESSION_DRIVER=file
 SESSION_LIFETIME=120
 
-REDIS_HOST=172.23.0.3
+REDIS_HOST=xxx.xxx.xx.xx
 REDIS_PASSWORD=null
 REDIS_PORT=6379
 REDIS_CLIENT=predis
