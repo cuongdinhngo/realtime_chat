@@ -63,14 +63,11 @@
     window.Echo.join(channel)
         .here((users) => {
             console.log('===HERE===');
-            console.log(users);
             usersOnline = users;
-            console.log(channel);
             getTotalUsersOnline(channel);
         })
         .joining((user) => {
             console.log('===JOINING===');
-            console.log(user);
             usersOnline.push(user);
             getTotalUsersOnline(channel);
         })
@@ -82,8 +79,7 @@
             getTotalUsersOnline(channel);
         })
         .listen('PrivateMessage', function (data) {
-            console.log('TEST LISTEN ...');
-            console.log(data);
+            console.log('===LISTEN===');
             let chat = data.chat;
             chat.user = data.user;
             appendMessage(chat);
@@ -96,8 +92,7 @@
     //Notification Broadcast
     window.Echo.private('notify_users.' + currentUserId)
         .notification((notification) => {
-            console.log(notification);
-            console.log(notification.type);
+            console.log("===Notify===");
             userNotifications.push(notification);
             displayNotify();
         });
@@ -113,10 +108,10 @@
                 room_id:  window.route.get('room_id')
             }
         }).done(function( msg ) {
-            console.log('AJAX.....');
+            console.log('DONE');
             $("#msgContent").val("");
         }).fail(function( jqXHR, textStatus ) {
-            console.log( "Request failed: " + textStatus );
+            console.log( "sendChatMessage FAILED " + textStatus );
         });
     });
 

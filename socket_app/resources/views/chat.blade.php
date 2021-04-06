@@ -61,18 +61,17 @@
     var userNotifications = <?php echo json_encode($userNotifications); ?>;
 
     let channel = 'messages';
+
     //Chat Broadcast
     window.Echo.join(channel)
         .here((users) => {
             console.log('===HERE===');
-            console.log(users);
             usersOnline = users;
             getTotalUsersOnline();
             getRooms();
         })
         .joining((user) => {
             console.log('===JOINING===');
-            console.log(user);
             usersOnline.push(user);
             getTotalUsersOnline();
             getRooms();
@@ -86,8 +85,7 @@
             getRooms();
         })
         .listen('PublicMessage', function (data) {
-            console.log('TEST LISTEN ...');
-            console.log(data);
+            console.log('===LISTEN===');
             let chat = data.message;
             chat.sender = data.user;
             appendMessage(chat);
@@ -99,8 +97,7 @@
     //Notification Broadcast
     window.Echo.private('notify_users.' + currentUserId)
         .notification((notification) => {
-            console.log(notification);
-            console.log(notification.type);
+            console.log("===Notify===");
             userNotifications.push(notification);
             displayNotify();
         });
@@ -121,8 +118,7 @@
             method: "POST",
             data: { message : messageContent }
         }).done(function( msg ) {
-            console.log('AJAX.....');
-            console.log(msg.message);
+            console.log('DONE');
             $("#msgContent").val("");
         }).fail(function( jqXHR, textStatus ) {
             console.log( "Request failed: " + textStatus );

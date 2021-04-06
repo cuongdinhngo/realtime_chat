@@ -8,6 +8,12 @@ use Auth;
 
 class ChatService
 {
+    /**
+     * List chat message by conditions
+     *
+     * @param  int    $roomId [description]
+     * @return [type]         [description]
+     */
     public function listMessagesByConditions(int $roomId)
     {
         $where = [
@@ -16,6 +22,13 @@ class ChatService
         return app(ChatRepository::class)->getChatByConditions($where);
     }
 
+    /**
+     * send chat message
+     *
+     * @param  string $content [description]
+     * @param  int    $roomId  [description]
+     * @return [type]          [description]
+     */
     public function sendMessage(string $content, int $roomId)
     {
     	$chat = $this->prepareSendData($content, $roomId);
@@ -23,6 +36,13 @@ class ChatService
     	return $chat;
     }
 
+    /**
+     * Prepare send data
+     *
+     * @param  string $content [description]
+     * @param  int    $roomId  [description]
+     * @return [type]          [description]
+     */
     public function prepareSendData(string $content, int $roomId)
     {
     	$chat = new Chat();

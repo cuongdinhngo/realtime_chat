@@ -9,6 +9,12 @@ use App\Notifications\MessageWasPosted;
 
 class RoomService
 {
+    /**
+     * List rooms by user
+     *
+     * @param  User   $user [description]
+     * @return [type]       [description]
+     */
     public function listRoomsByUser(User $user)
     {
         $where = [
@@ -18,6 +24,13 @@ class RoomService
         return $this->composeRoomData($rooms, $user);
     }
 
+    /**
+     * Compose room data
+     *
+     * @param  [type] $rooms [description]
+     * @param  [type] $user  [description]
+     * @return [type]        [description]
+     */
     public function composeRoomData($rooms, $user)
     {
         $results = [];
@@ -36,6 +49,12 @@ class RoomService
         return $results;
     }
 
+    /**
+     * Set Room name
+     *
+     * @param [type] $users       [description]
+     * @param [type] $currentUser [description]
+     */
     public function setRoomName($users, $currentUser)
     {
         $users = array_filter($users, function ($user) use ($currentUser) {
@@ -48,6 +67,13 @@ class RoomService
         return implode(' ,', $names);
     }
 
+    /**
+     * Authorize user belong to room
+     *
+     * @param  User   $user   [description]
+     * @param  int    $roomId [description]
+     * @return [type]         [description]
+     */
     public function authorizeUser(User $user, int $roomId)
     {
     	$where = [
@@ -57,6 +83,12 @@ class RoomService
         return app(RoomRepository::class)->listRoomsByUser($where)->count();
     }
 
+    /**
+     * Create room data
+     *
+     * @param  [type] $userCreated [description]
+     * @return [type]              [description]
+     */
     public function createRoom($userCreated)
     {
         $room = new Room();
@@ -64,6 +96,13 @@ class RoomService
         return app(RoomRepository::class)->save($room);
     }
 
+    /**
+     * Join user room
+     *
+     * @param  Room   $room  [description]
+     * @param  array  $users [description]
+     * @return [type]        [description]
+     */
     public function joinUserRoom(Room $room, array $users)
     {
         $users = array_map(function($user) use ($room){
@@ -75,6 +114,12 @@ class RoomService
         return app(RoomRepository::class)->insertUserRoom($users);
     }
 
+    /**
+     * Find users by room_id
+     *
+     * @param  int    $roomId [description]
+     * @return [type]         [description]
+     */
     public function findUsersByRoomId(int $roomId)
     {
         $where = [
@@ -83,6 +128,13 @@ class RoomService
         return app(RoomRepository::class)->listUsersByConditions($where);
     }
 
+    /**
+     * Send notifications
+     *
+     * @param  [type] $users  [description]
+     * @param  [type] $roomId [description]
+     * @return [type]         [description]
+     */
     public function sendNotifications($users, $roomId)
     {
         $users->each(function($item, $key) use($roomId) {
@@ -90,6 +142,13 @@ class RoomService
         });
     }
 
+    /**
+     * Mark as read in notifications
+     *
+     * @param  [type] $user   [description]
+     * @param  [type] $roomId [description]
+     * @return [type]         [description]
+     */
     public function updateNotificationByRoomId($user, $roomId)
     {
         $updatedData = ['read_at' => now()->toDateTimeString()];

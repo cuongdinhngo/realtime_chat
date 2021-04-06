@@ -8,11 +8,22 @@ use App\Models\User;
 
 class MessageService
 {
+    /**
+     * Get message in public room
+     *
+     * @return [type] [description]
+     */
     public function getMessagesInPublicRoom()
     {
         return app(MessageRepository::class)->get();
     }
 
+    /**
+     * Post message in Public room
+     *
+     * @param  User   $user [description]
+     * @return [type]       [description]
+     */
     public function postMessageInPublicRoom(User $user)
     {
         $message = $this->prepareInsertMessageData($user);
@@ -20,6 +31,12 @@ class MessageService
         return $message;
     }
 
+    /**
+     * Prepare insert message data
+     *
+     * @param  User   $user [description]
+     * @return [type]       [description]
+     */
     public function prepareInsertMessageData(User $user)
     {
         $message = new Message();

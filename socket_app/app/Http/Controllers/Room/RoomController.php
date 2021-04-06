@@ -20,6 +20,11 @@ class RoomController extends Controller
 		$this->chatService = $chatService;
 	}
 
+    /**
+     * List all rooms belong to user
+     *
+     * @return mixed
+     */
     public function listUserRooms()
     {
     	$user = Auth::user();
@@ -27,15 +32,25 @@ class RoomController extends Controller
     	return $rooms;
     }
 
+    /**
+     * Enter the room
+     *
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function enterRoom(Request $request)
     {
-        \DB::enableQueryLog();
         $this->roomService->updateNotificationByRoomId(Auth::user(), ["room_id" => $request->room_id]);
     	$messages = $this->chatService->listMessagesByConditions($request->room_id);
-        logger(\DB::getQueryLog());
     	return view('room', ['id' => $request->id, 'messages' => $messages]);
     }
 
+    /**
+     * Chat in private
+     *
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function chat(Request $request)
     {
         try {
@@ -53,6 +68,12 @@ class RoomController extends Controller
         }
     }
 
+    /**
+     * Get users by room_id
+     *
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function getUsersByRoomId(Request $request)
     {
         return $this->roomService->findUsersByRoomId($request->room_id);

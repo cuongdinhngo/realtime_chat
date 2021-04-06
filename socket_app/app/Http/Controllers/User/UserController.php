@@ -17,11 +17,23 @@ class UserController extends BaseController
     {
         $this->userService = $userService;
     }
+
+    /**
+     * Get current user login
+     *
+     * @return [type] [description]
+     */
     public function getCurrentUserLogin()
     {
         return Auth::user();
     }
 
+    /**
+     * Get user
+     *
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function getUser(Request $request)
     {
         $user = $this->userService->findUserById($request->id);
@@ -29,6 +41,13 @@ class UserController extends BaseController
         return view("user.show", compact(['user', 'room']));
     }
 
+    /**
+     * User join room
+     *
+     * @param  Request     $request     [description]
+     * @param  RoomService $roomService [description]
+     * @return [type]                   [description]
+     */
     public function connect(Request $request, RoomService $roomService)
     {
         try {
@@ -44,6 +63,12 @@ class UserController extends BaseController
         }
     }
 
+    /**
+     * List notifications
+     *
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function listNotifications(Request $request)
     {
         $userNotifications = Auth::user()->notifications;

@@ -42,19 +42,8 @@ class TestNotifcation extends Command
      */
     public function handle()
     {
-        logger(__METHOD__);
-        // $user = User::find(1);
-        // $room = Room::find(3);
-        // $user->notify(new MessageWasPosted($user, $room->id));
-        $users = app(RoomService::class)->findUsersByRoomId(4);
-        dump($users->toArray());
-        $users = $users->filter(function($value, $key) {
-            // dump($value);
-                // return $value['user_id'] != $currentUser->id;
-            });
-        logger('-----------------------------');
-        // foreach ($user->notifications as $notification) {
-        //     dump($notification->type);
-        // }
+        $user = User::find(1);
+        $room = Room::find(3);
+        $user->notify(new MessageWasPosted($user, $room->id));
     }
 }

@@ -19,6 +19,12 @@ class MessageRepository
         return Message::with('sender')->select($select)->where($where)->get();
     }
 
+    /**
+     * Store message
+     *
+     * @param  Message $message [description]
+     * @return [type]           [description]
+     */
     public function insert(Message $message)
     {
         return $message->save();

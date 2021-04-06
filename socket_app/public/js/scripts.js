@@ -6,7 +6,6 @@ var ajaxSetupHeader = {headers: {'X-CSRF-TOKEN': csrfToken}};
 var allUsers = [];
 
 function getUserByRoomId() {
-    console.log('...getUserByRoomId...');
     $.ajaxSetup(ajaxSetupHeader);
     $.ajax({
         url: "/rooms/get-user-by-room",
@@ -23,7 +22,6 @@ function getUserByRoomId() {
 }
 
 function getRooms() {
-    console.log('...getRooms...');
     $.ajaxSetup(ajaxSetupHeader);
     $.ajax({
         url: "/rooms/list-user-rooms",
@@ -38,7 +36,6 @@ function getRooms() {
 }
 
 function listUsersOnline() {
-    console.log('...listUsersOnline...');
     let item = '';
     if (allUsers.length > 0) {
         for (const member of allUsers) {
@@ -55,7 +52,6 @@ function listUsersOnline() {
 }
 
 function listAvailableRooms(rooms) {
-    console.log('...listAvailableRooms...');
     let item = '';;
     for (const room of rooms) {
         let status = usersOnline.findIndex(item => room.ids.includes(item.id)) > -1 ? "on-circle" : "off-circle";
@@ -65,7 +61,6 @@ function listAvailableRooms(rooms) {
 }
 
 function getUserLogin() {
-    console.log('...getUserLogin...');
     $.ajaxSetup(ajaxSetupHeader);
     $.ajax({
         url: "/users/current-user-login",
@@ -74,12 +69,11 @@ function getUserLogin() {
     }).done(function( user ) {
         currentUserLogin = user;
     }).fail(function( jqXHR, textStatus ) {
-        console.log( "Request failed: " + textStatus );
+        console.log( "getUserLogin FAILED " + textStatus );
     });
 }
 
 function getTotalUsersOnline() {
-    console.log('...getTotalUsersOnline...');
     $('#userOnline').html(usersOnline.length);
     listUsersOnline();
 }

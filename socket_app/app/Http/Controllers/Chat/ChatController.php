@@ -15,6 +15,12 @@ class ChatController extends Controller
         $this->chatService = $chatService;
     }
 
+    /**
+     * Get chat messages by room_id
+     *
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function getChatMessagesByRoom(Request $request)
     {
         return $this->chatService->listMessagesByConditions($request->room_id);
