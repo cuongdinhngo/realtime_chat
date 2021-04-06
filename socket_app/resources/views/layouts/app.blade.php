@@ -43,12 +43,15 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}"><i class="fas fa-users fa-lg"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}"><i class="fas fa-bell fa-lg"></i></a>
-                        </li>
+                        @if (Auth::user())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}"><i class="fas fa-users fa-lg"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('users.list-notifications') }}"><i class="fas fa-bell fa-lg"></i></a>
+                                <span id="notify" ></span>
+                            </li>
+                        @endif
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">

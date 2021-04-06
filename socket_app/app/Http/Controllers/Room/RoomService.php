@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Room;
 use App\Models\User;
 use App\Models\Room;
 use App\Http\Controllers\Room\RoomRepository;
+use App\Notifications\MessageWasPosted;
 
 class RoomService
 {
@@ -80,5 +81,21 @@ class RoomService
             ['room_id', '=', $roomId]
         ];
         return app(RoomRepository::class)->listUsersByConditions($where);
+    }
+
+    public function sendNotifications($users, $roomId)
+    {
+        $users->each(function($item, $key) use($roomId) {
+            $item->user->notify(new MessageWasPosted($item->user, $roomId));
+        });
+    }
+
+    public function updateNotificationByRoomId($user, $roomId)
+    {
+        $updatedData = ['read_at' => now()->toDateTimeString()];
+        \DB::table("notifications")
+            ->where('notifiable_id', $user->id)
+            ->whereRaw("JSON_CONTAINS(data, '".json_encode($roomId)."')")
+            ->update($updatedData);
     }
 }

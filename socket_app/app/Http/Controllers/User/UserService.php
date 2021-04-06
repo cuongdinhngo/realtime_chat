@@ -7,7 +7,7 @@ use App\Models\UserRoom;
 
 class UserService
 {
-    public function findUserById(int $id)
+    public function findUserById($id)
     {
     	return User::find($id);
     }

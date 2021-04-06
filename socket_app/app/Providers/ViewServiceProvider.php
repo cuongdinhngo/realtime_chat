@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Http\View\Composers\UserRoomComposer;
+use App\Http\View\Composers\UserNotificationComposer;
 use Illuminate\Support\Facades\View;
 
 class ViewServiceProvider extends ServiceProvider
@@ -28,6 +29,10 @@ class ViewServiceProvider extends ServiceProvider
         View::composer(
             ['room'],
             UserRoomComposer::class
+        );
+        View::composer(
+            ['room', 'chat'],
+            UserNotificationComposer::class
         );
     }
 }

@@ -26,6 +26,7 @@ Route::group(["prefix" => "users", "namespace" => "User", "as" => "users."], fun
     Route::get("/current-user-login", "UserController@getCurrentUserLogin")->name('current-user-login');
     Route::get("/{id}", "UserController@getUser")->name('get-user');
     Route::get("/connect/{id}", "UserController@connect")->name('connect');
+    Route::get("/notifications/list", "UserController@listNotifications")->name("list-notifications");
 });
 
 Route::group(["middleware" => ['auth'], "prefix" => "rooms", "namespace" => "Room", "as" => "rooms."], function () {

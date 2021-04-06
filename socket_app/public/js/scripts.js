@@ -97,7 +97,7 @@ function loadMessages(listMessages) {
 }
 
 function appendMessage(message) {
-    let isCurrentUser = currentUserLogin.id == message.sender.id ? "is-current-user" : "";
+    let isCurrentUser = currentUserId == message.sender.id ? "is-current-user" : "";
     let item = `<div class="message ${isCurrentUser}">
         <div class="message-item user-name">
             ${message.sender.name}:
@@ -107,4 +107,17 @@ function appendMessage(message) {
         </div>
     </div>`;
     $(".messages-content").append(item);
+}
+
+function displayNotify() {
+    let qtyNotify = userNotifications.length;
+    if (qtyNotify > 10) {
+        $("#notify").css("display", "block");
+        $("#notify").css("padding", "2px");
+        $('#notify').html('10+');
+    }
+    if (qtyNotify > 0 && qtyNotify < 10) {
+        $("#notify").css("display", "block");
+        $('#notify').html(qtyNotify);
+    }
 }

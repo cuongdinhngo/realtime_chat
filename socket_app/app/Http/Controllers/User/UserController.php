@@ -43,4 +43,10 @@ class UserController extends BaseController
             report($e);
         }
     }
+
+    public function listNotifications(Request $request)
+    {
+        $userNotifications = Auth::user()->notifications;
+        return view("notification", compact("userNotifications"));
+    }
 }

@@ -29,7 +29,10 @@ class RoomController extends Controller
 
     public function enterRoom(Request $request)
     {
+        \DB::enableQueryLog();
+        $this->roomService->updateNotificationByRoomId(Auth::user(), ["room_id" => $request->room_id]);
     	$messages = $this->chatService->listMessagesByConditions($request->room_id);
+        logger(\DB::getQueryLog());
     	return view('room', ['id' => $request->id, 'messages' => $messages]);
     }
 
@@ -38,6 +41,12 @@ class RoomController extends Controller
         try {
             $chat = $this->chatService->sendMessage($request->message, $request->room_id);
             broadcast(new PrivateMessage($chat->load('sender')))->toOthers();
+            $users = $this->roomService->findUsersByRoomId($request->room_id);
+            $currentUser = Auth::user();
+            $users = $users->filter(function($value, $key) use ($currentUser) {
+                return $value['user_id'] != $currentUser->id;
+            });
+            $this->roomService->sendNotifications($users, $request->room_id);
             return ['chat' => $chat->load('sender')];
         } catch (\Exception $e) {
             report($e);

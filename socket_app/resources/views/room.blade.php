@@ -47,14 +47,16 @@
 
 <script>
     window.userData = <?php echo json_encode($data);?>;
-    console.log(window.userData);
+    var currentUserId = window.userData.user.id;
+    var userNotifications = <?php echo json_encode($userNotifications); ?>;
+
     $(document).ready(function() {
-        getUserLogin();
         var listMessages = <?php echo $messages->toJson();?>;
         loadMessages(listMessages);
         scrollToButtom('.messages');
         console.log(window.route.get('room_id'));
         getUserByRoomId();
+        displayNotify();
     });
 
     let channel = 'room.'+window.route.get('room_id');
@@ -88,6 +90,16 @@
             $('.messages').animate({
                 scrollTop: $('.messages').get(0).scrollHeight
             }, 1000);
+        });
+
+
+    //Notification Broadcast
+    window.Echo.private('notify_users.' + currentUserId)
+        .notification((notification) => {
+            console.log(notification);
+            console.log(notification.type);
+            userNotifications.push(notification);
+            displayNotify();
         });
 
     $('#btnSend').click(function(){

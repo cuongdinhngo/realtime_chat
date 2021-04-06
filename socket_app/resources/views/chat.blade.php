@@ -56,6 +56,10 @@
 <script src="//{{ Request::getHost() }}:6001/socket.io/socket.io.js"></script>
 
 <script>
+    var currentUserId = <?php echo Auth::user()->id;?>;
+
+    var userNotifications = <?php echo json_encode($userNotifications); ?>;
+
     let channel = 'messages';
     //Chat Broadcast
     window.Echo.join(channel)
@@ -93,10 +97,12 @@
         });
 
     //Notification Broadcast
-    window.Echo.private('notify_users.1')
+    window.Echo.private('notify_users.' + currentUserId)
         .notification((notification) => {
             console.log(notification);
             console.log(notification.type);
+            userNotifications.push(notification);
+            displayNotify();
         });
 
     $(document).ready(function() {
@@ -104,6 +110,7 @@
         var listMessages = <?php echo $messages->toJson();?>;
         loadMessages(listMessages);
         scrollToButtom('.messages');
+        displayNotify();
     });
 
     $('#btnSend').click(function(){

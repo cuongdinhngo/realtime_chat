@@ -8,6 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use App\Models\Room;
+use App\Models\User;
 
 class MessageWasPosted extends Notification implements ShouldQueue
 {
@@ -15,7 +16,7 @@ class MessageWasPosted extends Notification implements ShouldQueue
 
     const MSG_POSTED_CODE = 111;
 
-    public $room;
+    public $roomId;
 
     public $user;
 
@@ -24,9 +25,9 @@ class MessageWasPosted extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(User $user, Room $room)
+    public function __construct(User $user, $roomId)
     {
-        $this->room = $room;
+        $this->roomId = $roomId;
         $this->user = $user;
     }
 
@@ -81,8 +82,8 @@ class MessageWasPosted extends Notification implements ShouldQueue
     {
         return [
             "code" => self::MSG_POSTED_CODE,
-            "sender_id" => $this->msgContent,
-            "room_id" => 
+            "sender_id" => $this->user->id,
+            "room_id" => $this->roomId,
         ];
     }
 }
