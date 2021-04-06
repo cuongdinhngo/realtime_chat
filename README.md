@@ -27,7 +27,7 @@ REDIS_CLIENT=predis
 REDIS_PREFIX=""
 </pre>
 7) Configure project as below commands:
-</pre>
+<pre>
 `docker exec -it app_server bash`
 `composer install`
 `npm install`
