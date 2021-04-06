@@ -22,7 +22,7 @@ Route::group(["middleware" => ['auth'], "prefix" => "messages", "namespace" => "
     Route::post("/public", "MessageController@store")->name('store');
 });
 
-Route::group(["prefix" => "users", "namespace" => "User", "as" => "users."], function () {
+Route::group(["middleware" => ['auth'], "prefix" => "users", "namespace" => "User", "as" => "users."], function () {
     Route::get("/current-user-login", "UserController@getCurrentUserLogin")->name('current-user-login');
     Route::get("/{id}", "UserController@getUser")->name('get-user');
     Route::get("/connect/{id}", "UserController@connect")->name('connect');
