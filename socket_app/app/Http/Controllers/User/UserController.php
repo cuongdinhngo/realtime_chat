@@ -37,7 +37,8 @@ class UserController extends BaseController
     public function getUser(Request $request)
     {
         $user = $this->userService->findUserById($request->id);
-        $room = $this->userService->matchUsersToRoom(Auth::user()->id, $request->id)->toArray();
+        $room = $this->userService->matchUsersToRoom(Auth::user()->id, $request->id);
+        $room = $room ? $room->toArray() : [];
         return view("user.show", compact(['user', 'room']));
     }
 
