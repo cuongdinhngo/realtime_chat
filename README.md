@@ -1,4 +1,6 @@
-# REALTIME CHAT: LARAVEL, MySQL, REDIS, LARAVEL ECHO, SOCKET.IO Client
+# REALTIME CHAT & NOTIFICATION: LARAVEL, MySQL, REDIS, LARAVEL ECHO, SOCKET.IO Client
+
+You can read more about my project to understand the process of broadcasting with Redis, Laravel Echo Server, Socket.IO Client via [my LinkedIn](https://www.linkedin.com/pulse/realtime-chat-laravel-mysql-redis-echo-socketio-client-cuong-dinh-ngo)
 
 1) Go to `echo-docker` folder to start containers
 2) Run command: `docker-composer up -d` at `echo-docker`
